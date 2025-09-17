@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wipro COE Skilling Online Test - KGCAS 2023 Batch</title>
+    <base target="_self"> <!-- Prevent new tabs -->
+    <script>
+        let warningCount = 0;
+
+        // Detect App Switching (Home Button, Recent Apps)
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                warningCount++;
+                alert("Warning " + warningCount + ": Do not switch apps! Exam will be auto-submitted after 2 warnings.");
+                
+                if (warningCount >= 2) {
+                    autoSubmitExam();
+                }
+            }
+        });
+
+        function autoSubmitExam() {
+            document.getElementById("examFrame").style.pointerEvents = "none"; // Disable form
+            alert("Your exam has been auto-submitted. Redirecting...");
+            setTimeout(() => {
+                window.location.href = "https://www.microsoft.com"; // Redirect to exit page
+            }, 1000);
+        }
+
+        // Prevent Back Button
+        function preventBack() {
+            history.pushState(null, "", location.href);
+        }
+        window.addEventListener("popstate", preventBack);
+        preventBack();
+
+        // Prevent Page Refresh
+        window.addEventListener("beforeunload", function (e) {
+            e.preventDefault();
+            e.returnValue = "";
+        });
+
+        // Force Full-Screen Mode
+        function goFullScreen() {
+            let elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        }
+        window.onload = function() {
+            goFullScreen();
+        };
+    </script>
+</head>
+<body>
+    <div >
+        <img style="height:100px;display: block;margin-left: auto;margin-right: auto;width: 50%;"  src="https://res.cloudinary.com/dvtp7qk6u/image/upload/v1740984058/KGM_KGCAS_HEADER_LOGO_qouigb.png" alt="">
+    </div>
+    <iframe id="examFrame" 
+            src="https://forms.office.com/r/tNEZpuJVZ5" 
+            width="100%" height="800px" frameborder="0">
+        Loading...
+    </iframe>
+</body>
+</html>
